@@ -1,6 +1,6 @@
 # Project brief: Ghost in a Shipping Container
 
-**Week 3 · Repo:** `ghost-in-a-container` · **Language:** Python 3.11+ · **Tools:** Docker, Render or Railway
+**Week 3 · Folder:** `ghost-in-a-container` · **Language:** Python 3.11+ · **Tools:** Docker, Render or Railway
 
 ## What it is
 
@@ -23,7 +23,7 @@ Copy `app.py` from `two-headed-ghost`. The deployed copy runs with `FORTUNE_MODE
 - `GET /health` returns 200 `{"status": "alive"}`. It needs no passphrase.
 - The Dockerfile starts the app in **shell form**, so that `$PORT` gets expanded:
   `CMD gunicorn --bind 0.0.0.0:${PORT:-5000} app:app`
-- Secrets never go in the repo. On the host, set `GHOST_PASSPHRASE` and `FORTUNE_MODE=prod` in its dashboard.
+- Secrets never go in your files. On the host, set `GHOST_PASSPHRASE` and `FORTUNE_MODE=prod` in its dashboard.
 
 ## Done when
 
@@ -31,7 +31,7 @@ Copy `app.py` from `two-headed-ghost`. The deployed copy runs with `FORTUNE_MODE
 - [ ] `docker run -p 5000:5000 -e GHOST_PASSPHRASE=... ghost` runs, and `curl localhost:5000/health` returns 200
 - [ ] The deployed URL returns 200 for `/health`
 - [ ] `/fortune` works on the public URL with the `X-Passphrase` header
-- [ ] The Dockerfile is linked from the repo's README
+- [ ] A README.md in the folder explains how to run it
 
 ## Break it on purpose
 

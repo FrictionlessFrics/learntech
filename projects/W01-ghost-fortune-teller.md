@@ -1,6 +1,6 @@
 # Project brief: The Ghost Fortune Teller
 
-**Week 1 · Repo:** `ghost-fortune-teller` · **Language:** Python 3.11+ · **Libraries:** Flask
+**Week 1 · Folder:** `ghost-fortune-teller` · **Language:** Python 3.11+ · **Libraries:** Flask
 
 ## What it is
 

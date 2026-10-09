@@ -1,19 +1,19 @@
 # Project brief: The Dragon's Hoard
 
-**Week 7 · Repos:** `hoard-leak-practice` (throwaway) and `dragons-hoard` · **Tools:** Docker, Postgres 16, gitleaks, psql, Python 3.11+ with `psycopg` (or any Postgres client)
+**Week 7 · Folders:** `hoard-leak-practice` (throwaway) and `dragons-hoard` · **Tools:** Docker, Postgres 16, gitleaks, psql, Python 3.11+ with `psycopg` (or any Postgres client)
 
 ## What it is
 
 Two exercises in one project. First you leak a fake key on purpose, find it and deal with it. Then you run a Postgres database of dragon treasure and give a goblin script the least access it needs.
 
-## Part A: the leaked key (throwaway repo `hoard-leak-practice`)
+## Part A: the leaked key (throwaway folder `hoard-leak-practice`)
 
-1. Create the repo. Add `config.py` containing `API_KEY = "dragon_live_FAKE0123456789abcdef"` and commit it. Then delete that line and commit again. The key is still in the history.
-2. Scan the repo with gitleaks: `gitleaks detect --source . -v`. Save the finding.
+1. Create the folder. Add `config.py` containing `API_KEY = "dragon_live_FAKE0123456789abcdef"` and commit it. Then delete that line and commit again. The key is still in the history.
+2. Scan the folder with gitleaks: `gitleaks detect --source . -v`. Save the finding.
 3. Treat the key as compromised. Write down why deleting the commit doesn't make it safe, and what rotating it would involve in a real service: revoke it, issue a new one, and update every place that uses it.
-4. Delete the throwaway repo when you're done.
+4. Delete the throwaway folder when you're done.
 
-## Part B: the hoard (repo `dragons-hoard`)
+## Part B: the hoard (folder `dragons-hoard`)
 
 ### Database
 
@@ -55,7 +55,7 @@ Insert at least ten rows for four dragons: `Ember`, `Frostwing`, `Old Scale` and
 
 ## Done when
 
-- [ ] gitleaks finds the fake key in the throwaway repo, and you can explain the finding
+- [ ] gitleaks finds the fake key in the throwaway folder, and you can explain the finding
 - [ ] `goblin_report.py` prints gold per dragon when run as `goblin_reader`
 - [ ] As `goblin_reader`, `DELETE FROM treasure` fails with "permission denied"
 - [ ] As `goblin_reader`, an `UPDATE treasure` fails with "permission denied"

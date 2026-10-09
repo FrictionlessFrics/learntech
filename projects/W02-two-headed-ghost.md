@@ -1,6 +1,6 @@
 # Project brief: The Two-Headed Ghost
 
-**Week 2 · Repo:** `two-headed-ghost` · **Language:** Python 3.11+ · **Libraries:** Flask
+**Week 2 · Folder:** `two-headed-ghost` · **Language:** Python 3.11+ · **Libraries:** Flask
 
 ## What it is
 
@@ -50,7 +50,7 @@ Returns status 200 and `{"status": "alive"}`. It needs no passphrase. You'll use
 - [ ] `PORT=5000 FORTUNE_MODE=dev GHOST_PASSPHRASE=... python app.py` and `PORT=5001 FORTUNE_MODE=prod GHOST_PASSPHRASE=... python app.py` both run, with no code changes between them
 - [ ] Starting without `GHOST_PASSPHRASE` exits with code 1 and a clear message
 - [ ] Wrong passphrase gives 401; correct passphrase gives 200
-- [ ] `grep -r` for your passphrase across the repo finds nothing
+- [ ] `grep -r` for your passphrase across the folder finds nothing
 - [ ] A 12-factor scorecard exists, with one line of reasoning per factor
 
 ## Break it on purpose

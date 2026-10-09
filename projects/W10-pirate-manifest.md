@@ -1,6 +1,6 @@
 # Project brief: The Pirate Manifest
 
-**Week 10 · Repo:** `pirate-manifest` · **Language:** Python 3.11+ · **Storage:** SQLite (standard library)
+**Week 10 · Folder:** `pirate-manifest` · **Language:** Python 3.11+ · **Storage:** SQLite (standard library)
 
 ## What it is
 

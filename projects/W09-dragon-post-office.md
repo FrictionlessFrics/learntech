@@ -1,6 +1,6 @@
 # Project brief: The Dragon Post Office
 
-**Week 9 · Repo:** `dragon-post-office` · **Language:** Python 3.11+, standard library only
+**Week 9 · Folder:** `dragon-post-office` · **Language:** Python 3.11+, standard library only
 
 ## What it is
 

@@ -1,6 +1,6 @@
 # Project brief: The Robot Chef's Recipe Scaler
 
-**Week 6 · Repo:** `robot-chefs-scaler` · **Language:** Python 3.11+ · **Libraries:** pytest · **Tools:** GitHub Actions
+**Week 6 · Folder:** `robot-chefs-scaler` · **Language:** Python 3.11+ · **Libraries:** pytest
 
 ## What it is
 
@@ -13,7 +13,7 @@ A function that scales a recipe for any number of guests from 1 to 1,000. The ro
 - `recipes/dragon_chili.json`: a recipe for 4 guests
 - `expected/pancakes_6.json`: the expected output for pancakes scaled to 6 guests
 - `tests/test_scale.py` and `tests/test_integration.py`
-- `.github/workflows/test.yml`
+- `docs/postmortem.md`: written in the break-it section below
 
 ## Data format
 
@@ -42,19 +42,22 @@ Write `recipes/pancakes.json` and `recipes/dragon_chili.json` yourself. Each nee
 
 - `tests/test_scale.py`: at least ten unit tests. Include 0 guests (an error), 1000 guests (works), 1/3 cup scaled, `to taste` unchanged, and the input not being modified.
 - `tests/test_integration.py`: loads `recipes/pancakes.json`, scales it to 6 guests, and compares the result with `expected/pancakes_6.json`.
-- `.github/workflows/test.yml`: runs `pytest` on every push and every pull request.
+- Run everything with `pytest` in the folder. It exits with 0 when every test passes and 1 when any test fails. Check with `echo $?`.
 
 ## Done when
 
-- [ ] `pytest` passes locally
-- [ ] CI is green on the main branch
-- [ ] A deliberately failing test turns CI red, and then you fix it
+- [ ] `pytest` passes
+- [ ] A deliberately failing test makes `pytest` exit with 1, and then you fix it
 - [ ] `docs/postmortem.md` exists (see below)
 
 ## Break it on purpose
 
-1. In `scale.py`, multiply the amount by 10 for any ingredient called `salt`. Push it. Did CI catch it? If not, add the missing test and watch it fail.
+1. In `scale.py`, multiply the amount by 10 for any ingredient called `salt`. Run `pytest`. Did any test fail? If not, add the missing test and watch it fail.
 2. Write `docs/postmortem.md` for that mistake: what happened, how it was found, the impact, and one action that stops it happening again. Keep it blameless: describe the system, not a person.
+
+## Stretch (needs a GitHub account, so ask me first)
+
+Run `pytest` automatically on every push with GitHub Actions: a `.github/workflows/test.yml` file that runs `pytest`.
 
 ## Working agreement
 

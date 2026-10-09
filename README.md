@@ -8,7 +8,7 @@ a dragon's hoard, a slow post office. Every project exists to teach one set of c
 | Weeks | Area | Projects | You'll ship |
 | --- | --- | --- | --- |
 | 1–3 | **RUN** How software runs | The Ghost Fortune Teller, The Two-Headed Ghost, Ghost in a Shipping Container | A request-flow diagram, a twelve-factor scorecard, a live public URL |
-| 4–6 | **REL** Reliability | The Pirate Treasure Counter, The Storm Oracle Importer, The Robot Chef's Recipe Scaler | A failed run that alerted you, identical row counts across three runs, a green CI run and a postmortem |
+| 4–6 | **REL** Reliability | The Pirate Treasure Counter, The Storm Oracle Importer, The Robot Chef's Recipe Scaler | A failed run that alerted you, identical row counts across three runs, a passing test run and a postmortem |
 | 7–8 | **SEC** Security | The Dragon's Hoard, The Dragon Club | A permission-denied screenshot, RLS test output, a security note |
 | 9–12 | **SCL** Scaling | The Dragon Post Office, The Pirate Manifest, The Crystal Ball Cache, The Galaxy Map Generator | A p95 latency table, before and after query plans, cache hit rates, a State of the Dragon Kingdom memo |
 
@@ -44,16 +44,17 @@ The projects use Python, so start with a Python 3 install, and a free GitHub acc
 GitHub Pages on a private repo needs a paid GitHub plan. Your progress is never in the repo,
 so a public repo exposes only the curriculum.
 
-## Work on a project
+## Start a project
 
-Each project gets its own repo, so Claude Code starts with a clean slate and the full spec.
+No repos, no files, no setup:
 
-1. Open the week page and click **Copy brief**, or open the matching file in `projects/`.
-2. Create a new repo with the name the brief gives. Save the brief there as `BRIEF.md`.
-3. Copy `templates/CLAUDE-coach-mode.md` to `CLAUDE.md` in that repo. Claude Code reads it automatically, and it tells Claude to read `BRIEF.md` first.
-4. Start Claude Code in that repo and paste the first task prompt from the week page.
+1. On the Today page or the week page, click **Copy start prompt**.
+2. Open Claude Code and paste it into a new chat.
+3. Claude creates the folder, and walks you through the first task. Keep going one task at a time.
 
-Projects that build on an earlier one say which code to copy in their brief. Week 2, for example, starts from Week 1's app.
+The prompt bundles the coaching rules and the full project brief, so Claude knows the spec. Each task's **Teach-me prompt** works in the same chat later.
+
+Steps that need an account (GitHub, Render, Supabase) or Docker are marked optional or stretch, and Claude asks before doing them.
 
 After you edit a brief in `projects/`, run `node scripts/build-briefs.js` so the site picks it up. The deploy check fails if you forget.
 

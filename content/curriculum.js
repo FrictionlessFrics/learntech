@@ -156,7 +156,7 @@ window.LT.curriculum = {
                   id: "RUN-02.5",
                   kind: "prove",
                   mins: 30,
-                  text: "Score the fortune teller against all twelve factors: pass, partial or fail, with one line of reasoning each. Commit the scorecard and the .env.example to a repo."
+                  text: "Score the fortune teller against all twelve factors: pass, partial or fail, with one line of reasoning each. Save the scorecard and the .env.example in the project folder."
                 }
               ],
               read: [
@@ -218,7 +218,7 @@ window.LT.curriculum = {
                   id: "RUN-03.4",
                   kind: "do",
                   mins: 60,
-                  text: "Add a /health route that returns 200 and the word alive. Deploy to Render or Railway, and set the environment variables in their dashboard, never in the repo.",
+                  text: "Add a /health route that returns 200 and the word alive. Deploy to Render or Railway, and set the environment variables in their dashboard, never in your files.",
                   prompt:
                     "I'm deploying my containerised fortune teller to Render. Give me a checklist of what to configure and why, then let me do each step and tell you what I see."
                 },
@@ -226,7 +226,7 @@ window.LT.curriculum = {
                   id: "RUN-03.5",
                   kind: "prove",
                   mins: 15,
-                  text: "Record the live URL and link the Dockerfile in your repo. Ask a friend to ask the ghost a question."
+                  text: "Record the live URL and keep the Dockerfile in the project folder. Ask a friend to ask the ghost a question."
                 }
               ],
               read: [
@@ -274,8 +274,8 @@ window.LT.curriculum = {
               project: {
                 name: "The Pirate Treasure Counter",
                 pitch:
-                  "A script that reads a CSV of treasure chests every night, totals the gold and writes a report. It runs on a schedule in GitHub Actions and must scream when something goes wrong.",
-                tools: ["Python", "GitHub Actions", "a Discord or Slack webhook"]
+                  "A script that reads a CSV of treasure chests every night, totals the gold and writes a report. It must scream when the data is bad, and it can run on a schedule later.",
+                tools: ["Python", "a Discord or Slack webhook (optional)", "GitHub Actions (optional stretch)"]
               },
               concepts: ["logging", "error-handling", "exit-code", "monitoring-alerts"],
               tasks: [
@@ -299,13 +299,13 @@ window.LT.curriculum = {
                   id: "REL-04.3",
                   kind: "do",
                   mins: 45,
-                  text: "Make bad data exit with a non-zero code, so GitHub Actions marks the run red. Test it with a CSV that has a negative gold count."
+                  text: "Make bad data exit with a non-zero code. Check it in the terminal with echo $?: it should print 1 for bad data and 0 for good data."
                 },
                 {
                   id: "REL-04.4",
                   kind: "do",
                   mins: 45,
-                  text: "Alert yourself on failure: when the run fails, post a message to a Discord or Slack webhook. Both have free tiers."
+                  text: "Alert yourself on failure. Post to a Discord or Slack webhook, or print the alert to the terminal if you'd rather skip the account."
                 },
                 {
                   id: "REL-04.5",
@@ -330,7 +330,7 @@ window.LT.curriculum = {
                 ],
                 decides: "How much you can trust the numbers on any given morning."
               },
-              proof: "A deliberately failed run that alerted you, with the log line that explains it.",
+              proof: "A deliberately failed run, the exit code it returned, and the log line that explains it.",
               explain:
                 "Explain why a job that fails loudly is better than one that 'usually works'. Use the pirate ship as the example."
             },
@@ -410,8 +410,8 @@ window.LT.curriculum = {
               project: {
                 name: "The Robot Chef's Recipe Scaler",
                 pitch:
-                  "A function that scales any recipe from 1 to 1,000 guests, converting cups, grams and dragon pepper pinches. It's tested on every push, and then you break it on purpose.",
-                tools: ["Python", "pytest", "GitHub Actions"]
+                  "A function that scales any recipe from 1 to 1,000 guests, converting cups, grams and dragon pepper pinches. Its tests catch mistakes, and then you break it on purpose.",
+                tools: ["Python", "pytest"]
               },
               concepts: ["unit-test", "integration-test", "ci", "postmortem"],
               tasks: [
@@ -441,7 +441,7 @@ window.LT.curriculum = {
                   id: "REL-06.4",
                   kind: "do",
                   mins: 30,
-                  text: "Run the tests in GitHub Actions on every push and pull request. Confirm a failing test turns the run red."
+                  text: "Run the tests automatically on every change. Stretch: add GitHub Actions (needs a GitHub account, so ask first). Otherwise run pytest by hand before each change."
                 },
                 {
                   id: "REL-06.5",
@@ -453,7 +453,7 @@ window.LT.curriculum = {
                   id: "REL-06.6",
                   kind: "prove",
                   mins: 15,
-                  text: "Show a green test run in CI, and keep the postmortem next to it."
+                  text: "Show a passing pytest run and a failing one, and keep the postmortem next to them."
                 }
               ],
               read: [
@@ -478,7 +478,7 @@ window.LT.curriculum = {
                 ],
                 decides: "How quickly you can change business rules without breaking reports."
               },
-              proof: "A green CI run of the recipe tests, plus one blameless postmortem for the salt disaster.",
+              proof: "A passing pytest run and a failing one, plus one blameless postmortem for the salt disaster.",
               explain:
                 "Explain to a planner why tests let you change rules faster, not slower."
             }
@@ -501,7 +501,7 @@ window.LT.curriculum = {
               project: {
                 name: "The Dragon's Hoard",
                 pitch:
-                  "A Postgres database of dragon treasure, a goblin intern script that should only ever read it, and a throwaway repo with a fake secret key you'll commit by accident, find and lock down.",
+                  "A Postgres database of dragon treasure, a goblin intern script that should only ever read it, and a throwaway folder with a fake secret key you'll commit by accident, find and lock down.",
                 tools: ["Docker", "Postgres", "gitleaks", "psql"]
               },
               concepts: ["secrets", "authn-authz", "least-privilege", "service-key"],
@@ -510,9 +510,9 @@ window.LT.curriculum = {
                   id: "SEC-07.1",
                   kind: "do",
                   mins: 45,
-                  text: "In a throwaway repo, commit a fake API key by accident. Scan the history with gitleaks or GitHub secret scanning, and read the finding.",
+                  text: "In a throwaway folder, run git init and commit a fake API key by accident. Scan the history with gitleaks, and read the finding.",
                   prompt:
-                    "Help me scan a throwaway repo for leaked secrets, including its git history. Explain each finding and how bad it is before telling me how to fix it."
+                    "Help me scan a throwaway folder for leaked secrets, including its git history. Explain each finding and how bad it is before telling me how to fix it."
                 },
                 {
                   id: "SEC-07.2",

@@ -162,7 +162,7 @@ window.LT.glossary = [
       "The number a program returns when it finishes: 0 means success, anything else means failure. Schedulers like GitHub Actions use it to mark a run green or red.",
     analogy: "The final status on a work order: closed complete, or closed with an exception.",
     project:
-      "Week 4: a failed count exits with code 1, so GitHub Actions shows a red run instead of a green tick."
+      "Week 4: a failed count exits with code 1, which echo $? shows. A scheduler would show that run as red."
   },
   {
     id: "monitoring-alerts",
@@ -173,7 +173,7 @@ window.LT.glossary = [
     analogy:
       "Exception management in a control room. Nobody watches every shipment; people are flagged on the ones that will miss.",
     project:
-      "Week 4: a failed nightly run posts to Discord or Slack the same night."
+      "Week 4: a failed run posts an alert to Discord or Slack, or a printed alert if you skip the account."
   },
   {
     id: "idempotency",
@@ -243,7 +243,7 @@ window.LT.glossary = [
       "Tests run automatically on every change, so a broken change is caught before it merges.",
     analogy: "Incoming quality inspection on every shipment, rather than a sample once a quarter.",
     project:
-      "Week 6: GitHub Actions runs the recipe tests on every push."
+      "Week 6 (optional stretch): GitHub Actions runs the recipe tests on every push."
   },
   {
     id: "postmortem",

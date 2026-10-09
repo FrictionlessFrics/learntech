@@ -1,6 +1,6 @@
 # Project brief: The Galaxy Map Generator
 
-**Week 12 · Repo:** `galaxy-map-generator` · **Language:** Python 3.11+ · **Libraries:** Flask
+**Week 12 · Folder:** `galaxy-map-generator` · **Language:** Python 3.11+ · **Libraries:** Flask
 
 ## What it is
 

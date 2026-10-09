@@ -1,6 +1,6 @@
 # Project brief: The Crystal Ball Cache
 
-**Week 11 · Repo:** `crystal-ball-cache` · **Language:** Python 3.11+ · **Libraries:** Flask
+**Week 11 · Folder:** `crystal-ball-cache` · **Language:** Python 3.11+ · **Libraries:** Flask
 
 ## What it is
 
@@ -25,7 +25,7 @@ Copy `app.py` from `two-headed-ghost`. Keep every route, status code and passphr
 
 ### Moon phase invalidation
 
-- Create `moon_phase.txt` in the repo.
+- Create `moon_phase.txt` in the folder.
 - On every `/fortune` request, check `os.path.getmtime("moon_phase.txt")`. If it differs from the last value you saw, clear the whole cache.
 - To test it, touch the file and make a request.
 

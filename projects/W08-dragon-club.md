@@ -1,10 +1,10 @@
 # Project brief: The Dragon Club
 
-**Week 8 · Repo:** `dragon-club-lab` · **Tools:** Supabase (free tier), Flask, sqlite3, and any LLM API you have access to (or a local model)
+**Week 8 · Folder:** `dragon-club-lab` · **Tools:** Supabase (free tier), Flask, sqlite3, and any LLM API you have access to (or a local model)
 
 ## What it is
 
-One repo with three labs:
+One folder with three labs:
 
 1. `rls/`: a members-only Supabase table where each dragon sees only its own gold.
 2. `guestbook/`: a deliberately vulnerable Flask app for SQL injection practice.

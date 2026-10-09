@@ -358,6 +358,7 @@
         '<p class="section-aside">' + fmtHours(s.doneMins) + " of " + fmtHours(s.mins) + " planned</p></div>" +
         '<p class="muted">' + fmt(w.goal) + "</p>" +
         '<p class="small muted">Project: <strong>' + esc(w.project.name) + "</strong></p>" +
+        (startPrompt(w) ? '<p class="btn-row">' + copyBtn(startPrompt(w), "Copy start prompt", "primary small") + "</p>" : "") +
         '<ul class="tasks">' + w.tasks.map(taskRow).join("") + "</ul>" +
         '<p class="panel-foot"><a href="' + weekHref(w) + '">Open ' + w.id + ": concepts, reading, exec lens, reflection →</a></p>" +
         "</section>";
@@ -471,15 +472,39 @@
     );
   }
 
-  /* The full brief for Claude Code, copyable so it can go into the project repo as BRIEF.md. */
-  function briefBlock(w) {
+  /* One paste starts a project: coaching rules, set-up steps and the brief. Begins at the next unfinished task. */
+  function startPrompt(w) {
     var b = LT.briefs && LT.briefs[w.id];
     if (!b) return "";
+    var next = w.tasks.find(function (t) { return !isDone(t.id); }) || w.tasks[0];
+    return [
+      "I want to learn by building the project below. Work with me the way this says:",
+      "",
+      LT.coachMode || "",
+      "",
+      "## Set-up (I don't need to create anything myself)",
+      "- Create the folder or folders the brief names, inside the current working directory.",
+      "- Run git init in each one, so commit history exists when a task needs it. I don't need a GitHub account.",
+      "- Before any step that needs an account (GitHub, Render, Supabase, Discord), a paid API key or Docker, stop and ask me.",
+      "- Work one task at a time. Start with task " + next.id + ": " + next.text,
+      "  Teach it first, then wait for me before writing any code.",
+      "",
+      "---",
+      "",
+      b.text
+    ].join("\n");
+  }
+
+  function startBlock(w) {
+    var prompt = startPrompt(w);
+    if (!prompt) return "";
     return (
-      '<section class="panel brief"><details><summary>Project brief for Claude Code</summary>' +
-      '<p class="small muted">Save this as <code>BRIEF.md</code> in the repo named inside it. Claude Code then has the full spec.</p>' +
-      copyBtn(b.text, "Copy brief") +
-      '<pre class="code-block brief-text">' + esc(b.text) + "</pre></details></section>"
+      '<section class="panel start-panel" aria-labelledby="start-h"><p class="eyebrow">Start here</p>' +
+      '<h2 id="start-h">Start this project in Claude Code</h2>' +
+      "<p>Copy the prompt and paste it into a new Claude Code chat. Claude creates the folder and walks you through the first task. There's nothing else to set up.</p>" +
+      '<p class="btn-row">' + copyBtn(prompt, "Copy start prompt", "primary") + "</p>" +
+      '<details class="brief"><summary>Read the full brief</summary>' +
+      '<pre class="code-block brief-text">' + esc(LT.briefs[w.id].text) + "</pre></details></section>"
     );
   }
 
@@ -536,7 +561,7 @@
       '<section class="panel project-panel" aria-labelledby="proj-h"><p class="eyebrow">The project</p>' +
       '<h2 id="proj-h">' + esc(w.project.name) + "</h2><p>" + fmt(w.project.pitch) + "</p>" +
       '<p class="small muted">You\'ll use: ' + esc(w.project.tools.join(", ")) + "</p></section>" +
-      briefBlock(w) +
+      startBlock(w) +
       (overMins > 0
         ? '<p class="note">This week plans ' + fmtHours(s.mins) + ", " + fmtHours(overMins) + " over your weekly budget. Pick one task to carry into next week rather than squeezing it in.</p>"
         : "") +

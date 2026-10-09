@@ -1,6 +1,6 @@
 # Project brief: The Storm Oracle Importer
 
-**Week 5 · Repo:** `storm-oracle-importer` · **Language:** Python 3.11+ · **Libraries:** Flask, requests · **Storage:** SQLite (standard library)
+**Week 5 · Folder:** `storm-oracle-importer` · **Language:** Python 3.11+ · **Libraries:** Flask, requests · **Storage:** SQLite (standard library)
 
 ## What it is
 

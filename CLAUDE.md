@@ -13,6 +13,9 @@ must keep working when `index.html` is opened straight from disk. Content script
 - When expanding a planned track, match the shape of the active track's weeks: id, title, goal,
   project (name, pitch, tools), concepts (glossary ids, adding glossary entries as needed), tasks
   with id/kind/mins/text and an optional teach-me prompt, read, exec { ask, decides }, proof, explain.
+- Project briefs live in `projects/*.md`, one per week. Edit them there, then run
+  `node scripts/build-briefs.js`. `content/briefs.js` is generated; never hand-edit it.
+- Every brief needs `## Done when` and `## Break it on purpose` sections (the checker enforces this).
 - Run `node scripts/check-content.js` after any content change.
 - Colors are tokens in `assets/styles.css`; every token has light and dark values.
 - The owner is a data and operations executive who codes part-time. Write content in plain

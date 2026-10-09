@@ -471,6 +471,18 @@
     );
   }
 
+  /* The full brief for Claude Code, copyable so it can go into the project repo as BRIEF.md. */
+  function briefBlock(w) {
+    var b = LT.briefs && LT.briefs[w.id];
+    if (!b) return "";
+    return (
+      '<section class="panel brief"><details><summary>Project brief for Claude Code</summary>' +
+      '<p class="small muted">Save this as <code>BRIEF.md</code> in the repo named inside it. Claude Code then has the full spec.</p>' +
+      copyBtn(b.text, "Copy brief") +
+      '<pre class="code-block brief-text">' + esc(b.text) + "</pre></details></section>"
+    );
+  }
+
   function viewWeek(w) {
     var p = plan();
     var s = weekStats(w);
@@ -524,6 +536,7 @@
       '<section class="panel project-panel" aria-labelledby="proj-h"><p class="eyebrow">The project</p>' +
       '<h2 id="proj-h">' + esc(w.project.name) + "</h2><p>" + fmt(w.project.pitch) + "</p>" +
       '<p class="small muted">You\'ll use: ' + esc(w.project.tools.join(", ")) + "</p></section>" +
+      briefBlock(w) +
       (overMins > 0
         ? '<p class="note">This week plans ' + fmtHours(s.mins) + ", " + fmtHours(overMins) + " over your weekly budget. Pick one task to carry into next week rather than squeezing it in.</p>"
         : "") +
@@ -739,6 +752,7 @@
       "<li><code>content/curriculum.js</code>: tracks, weeks, tasks, reading, exec lens.</li>" +
       "<li><code>content/glossary.js</code>: concepts with plain, analogy and project explanations.</li>" +
       "<li><code>content/prompts.js</code>: the prompt library and coach mode.</li>" +
+      "<li><code>projects/*.md</code>: the project briefs. After editing, run <code>node scripts/build-briefs.js</code>.</li>" +
       "</ul>" +
       '<p class="small muted">Never change an existing task or concept id; your progress is saved against them. The README explains the rest.</p>' +
       "</section>" +

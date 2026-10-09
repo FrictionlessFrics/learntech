@@ -12,12 +12,18 @@ global.window = {};
 const root = path.join(__dirname, "..");
 const errors = [];
 
-for (const file of ["content/curriculum.js", "content/glossary.js", "content/prompts.js"]) {
+for (const file of ["content/curriculum.js", "content/glossary.js", "content/prompts.js", "content/briefs.js"]) {
   try {
     require(path.join(root, file));
   } catch (e) {
     errors.push(`${file} doesn't load: ${e.message}`);
   }
+}
+
+const fs = require("fs");
+const { buildText, out } = require(path.join(root, "scripts/build-briefs.js"));
+if (fs.readFileSync(out, "utf8") !== buildText()) {
+  errors.push("content/briefs.js is out of date. Run: node scripts/build-briefs.js");
 }
 
 const LT = window.LT || {};
@@ -59,6 +65,13 @@ tracks.forEach((track) => {
       }
       if (!w.exec || !Array.isArray(w.exec.ask) || !w.exec.decides) {
         errors.push(`${w.id} needs exec.ask (a list) and exec.decides`);
+      }
+      const brief = (LT.briefs || {})[w.id];
+      if (!brief) {
+        errors.push(`${w.id} has no brief in projects/`);
+      } else {
+        if (!brief.text.includes("## Done when")) errors.push(`${w.id} brief has no "## Done when" section`);
+        if (!brief.text.includes("## Break it on purpose")) errors.push(`${w.id} brief has no "## Break it on purpose" section`);
       }
       (w.concepts || []).forEach((c) => {
         if (!glossaryIds.has(c)) errors.push(`${w.id} lists concept "${c}", which isn't in glossary.js`);

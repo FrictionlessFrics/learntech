@@ -44,6 +44,19 @@ The projects use Python, so start with a Python 3 install, and a free GitHub acc
 GitHub Pages on a private repo needs a paid GitHub plan. Your progress is never in the repo,
 so a public repo exposes only the curriculum.
 
+## Work on a project
+
+Each project gets its own repo, so Claude Code starts with a clean slate and the full spec.
+
+1. Open the week page and click **Copy brief**, or open the matching file in `projects/`.
+2. Create a new repo with the name the brief gives. Save the brief there as `BRIEF.md`.
+3. Copy `templates/CLAUDE-coach-mode.md` to `CLAUDE.md` in that repo. Claude Code reads it automatically, and it tells Claude to read `BRIEF.md` first.
+4. Start Claude Code in that repo and paste the first task prompt from the week page.
+
+Projects that build on an earlier one say which code to copy in their brief. Week 2, for example, starts from Week 1's app.
+
+After you edit a brief in `projects/`, run `node scripts/build-briefs.js` so the site picks it up. The deploy check fails if you forget.
+
 ## Where your progress is saved
 
 - **In your browser** (localStorage) on GitHub Pages or locally. Each browser keeps its own copy.
@@ -62,6 +75,7 @@ All content is in three plain files. You don't need to touch the app code.
 | `content/curriculum.js` | Tracks, areas, weeks, projects, tasks, reading, exec lens, proof |
 | `content/glossary.js` | Concepts: `plain`, `analogy`, and `project` (where you'll meet it) |
 | `content/prompts.js` | The prompt library and the coach-mode text |
+| `projects/*.md` | The project briefs. After editing, run `node scripts/build-briefs.js`. |
 
 Rules that keep your progress safe:
 

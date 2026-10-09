@@ -273,7 +273,7 @@
   function conceptCard(t, showWeeks) {
     var lvl = fluency(t.id);
     var wks = termWeeks[t.id] || [];
-    var search = (t.term + " " + t.plain + " " + t.analogy + " " + t.stack).toLowerCase();
+    var search = (t.term + " " + t.plain + " " + t.analogy + " " + t.project).toLowerCase();
     return (
       '<article class="concept" id="term-' + t.id + '" data-area="' + esc(t.area) + '" data-level="' + lvl +
       '" data-search="' + esc(search) + '">' +
@@ -281,7 +281,7 @@
       '<p class="concept-plain">' + fmt(t.plain) + "</p>" +
       '<dl class="lens">' +
       "<div><dt>Supply chain</dt><dd>" + fmt(t.analogy) + "</dd></div>" +
-      "<div><dt>Your control tower</dt><dd>" + fmt(t.stack) + "</dd></div>" +
+      "<div><dt>Where you'll meet it</dt><dd>" + fmt(t.project) + "</dd></div>" +
       "</dl>" +
       (showWeeks && wks.length
         ? '<p class="small muted">Covered in ' +
@@ -357,6 +357,7 @@
         '<div class="section-head"><h2 id="tw-h"><span class="code">' + w.id + "</span> " + esc(w.title) + "</h2>" +
         '<p class="section-aside">' + fmtHours(s.doneMins) + " of " + fmtHours(s.mins) + " planned</p></div>" +
         '<p class="muted">' + fmt(w.goal) + "</p>" +
+        '<p class="small muted">Project: <strong>' + esc(w.project.name) + "</strong></p>" +
         '<ul class="tasks">' + w.tasks.map(taskRow).join("") + "</ul>" +
         '<p class="panel-foot"><a href="' + weekHref(w) + '">Open ' + w.id + ": concepts, reading, exec lens, reflection →</a></p>" +
         "</section>";
@@ -380,7 +381,7 @@
         : '<p class="all-clear">' + chip("ok", "Clear") + " Nothing needs attention. You're on the plan.</p>";
 
     var habit =
-      "Explain what idempotency means for my sync script, then let me try the fix first.";
+      "Explain what idempotency means for my Storm Oracle importer, then let me try the fix first.";
 
     return (
       '<div class="page">' +
@@ -397,7 +398,7 @@
       kpi("Proof shipped", shipped, weeks.length, pct(shipped, weeks.length)) +
       kpi("Weeks reflected on", reflected, weeks.length, pct(reflected, weeks.length)) +
       "</dl></aside></div>" +
-      "<section>" + sectionHead("Needs attention", "Exception-based, like your control tower.") + exHtml + "</section>" +
+      "<section>" + sectionHead("Needs attention", "Only what needs your attention.") + exHtml + "</section>" +
       '<section class="habit">' +
       '<p class="eyebrow">The habit that ties it together</p>' +
       "<p class=\"habit-line\">Ask Claude Code to teach instead of do.</p>" +
@@ -520,6 +521,9 @@
       "</dl>" +
       '<div class="title-row"><h1>' + esc(w.title) + "</h1>" + chip(st[0], st[1]) + "</div>" +
       '<p class="lede">' + fmt(w.goal) + "</p>" +
+      '<section class="panel project-panel" aria-labelledby="proj-h"><p class="eyebrow">The project</p>' +
+      '<h2 id="proj-h">' + esc(w.project.name) + "</h2><p>" + fmt(w.project.pitch) + "</p>" +
+      '<p class="small muted">You\'ll use: ' + esc(w.project.tools.join(", ")) + "</p></section>" +
       (overMins > 0
         ? '<p class="note">This week plans ' + fmtHours(s.mins) + ", " + fmtHours(overMins) + " over your weekly budget. Pick one task to carry into next week rather than squeezing it in.</p>"
         : "") +
@@ -590,7 +594,7 @@
     return (
       '<div class="page">' +
       '<header class="page-head"><p class="eyebrow">Glossary · ' + terms.length + " concepts</p><h1>Concepts, three ways</h1>" +
-      '<p class="lede">Each term in plain English, in supply chain terms, and where it lives in your control tower. Your ratings feed the fluency score on Today.</p></header>' +
+      '<p class="lede">Each term in plain English, in supply chain terms, and where you\'ll meet it in the weekly projects. Your ratings feed the fluency score on Today.</p></header>' +
       '<section aria-label="Fluency"><div class="stack-bar" role="img" aria-label="' +
       counts[3] + " used, " + counts[2] + " can explain, " + counts[1] + " heard of, " + counts[0] + ' not rated">' + bar + "</div>" +
       '<ul class="legend">' + legend + "</ul></section>" +
@@ -642,7 +646,7 @@
       '<header class="page-head"><p class="eyebrow">Prompt library</p><h1>Teach, don\'t do</h1>' +
       '<p class="lede">Prompts that make Claude Code your coach rather than your ghostwriter. Fill in the {braces} before you paste.</p></header>' +
       '<section class="panel coach">' + sectionHead("Make teaching the default") +
-      "<p>Paste this into the <code>CLAUDE.md</code> at the root of each control tower repo. Claude Code reads it at the start of every session, so you don't have to ask each time. The same text is in <code>templates/CLAUDE-coach-mode.md</code>.</p>" +
+      "<p>Paste this into the <code>CLAUDE.md</code> at the root of any repo you learn in. Claude Code reads it at the start of every session, so you don't have to ask each time. The same text is in <code>templates/CLAUDE-coach-mode.md</code>.</p>" +
       '<pre class="code-block">' + esc(LT.coachMode || "") + "</pre>" +
       copyBtn(LT.coachMode || "", "Copy coach mode", "small") + "</section>" +
       groups +
@@ -695,7 +699,7 @@
     return (
       '<div class="page">' +
       '<header class="page-head"><p class="eyebrow">Proof · ' + shippedCount + " of " + weeks.length + " shipped</p><h1>Evidence, not certificates</h1>" +
-      '<p class="lede">One tangible deliverable per week, built on your own system. This list is what sets you apart: a live deployment, a red alert you triggered on purpose, a read-only agent, before-and-after numbers.</p></header>' +
+      '<p class="lede">One tangible deliverable per week, built on that week\'s project. This list is what sets you apart: a live deployment, a deliberately broken build that alerted you, a database role that can\'t delete, before-and-after timings.</p></header>' +
       '<ul class="proof-list">' + rows + "</ul>" +
       "</div>"
     );
@@ -733,7 +737,7 @@
       '<section class="panel">' + sectionHead("Change what you learn") +
       '<ul class="plain-list">' +
       "<li><code>content/curriculum.js</code>: tracks, weeks, tasks, reading, exec lens.</li>" +
-      "<li><code>content/glossary.js</code>: concepts with plain, supply chain and control tower explanations.</li>" +
+      "<li><code>content/glossary.js</code>: concepts with plain, analogy and project explanations.</li>" +
       "<li><code>content/prompts.js</code>: the prompt library and coach mode.</li>" +
       "</ul>" +
       '<p class="small muted">Never change an existing task or concept id; your progress is saved against them. The README explains the rest.</p>' +

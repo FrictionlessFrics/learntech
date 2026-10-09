@@ -28,7 +28,7 @@ const glossaryIds = new Set();
   if (!t.id) errors.push(`Glossary entry ${i + 1} has no id`);
   else if (glossaryIds.has(t.id)) errors.push(`Glossary id "${t.id}" is used twice`);
   glossaryIds.add(t.id);
-  for (const key of ["term", "plain", "analogy", "stack"]) {
+  for (const key of ["term", "plain", "analogy", "project"]) {
     if (!t[key]) errors.push(`Glossary "${t.id}" is missing "${key}"`);
   }
 });
@@ -53,6 +53,9 @@ tracks.forEach((track) => {
       weekIds.add(w.id);
       for (const key of ["title", "goal", "proof", "explain"]) {
         if (!w[key]) errors.push(`${w.id} is missing "${key}"`);
+      }
+      if (!w.project || !w.project.name || !w.project.pitch || !Array.isArray(w.project.tools)) {
+        errors.push(`${w.id} needs project { name, pitch, tools (a list) }`);
       }
       if (!w.exec || !Array.isArray(w.exec.ask) || !w.exec.decides) {
         errors.push(`${w.id} needs exec.ask (a list) and exec.decides`);

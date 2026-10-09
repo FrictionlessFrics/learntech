@@ -1,27 +1,28 @@
 # LearnTech
 
 A personal upskilling site for a data executive who builds on the side. The first track,
-**Production Foundations**, is 12 weeks across four areas. Every concept is applied to your own
-supply chain control tower: the text-to-SQL agent, the MEIO backend, the GitHub Actions sync,
-`tagging_pipeline.py` and the Supabase tables.
+**Production Foundations**, is 12 weeks across four areas. Each week is built around an invented,
+slightly absurd project: a fortune-telling server, a treasure counter, a sneezing weather API,
+a dragon's hoard, a slow post office. Every project exists to teach one set of concepts.
 
-| Weeks | Area | You'll ship |
-| --- | --- | --- |
-| 1–3 | **RUN** How software runs | A request-flow diagram, a twelve-factor scorecard, the MEIO backend live from your own Dockerfile |
-| 4–6 | **REL** Reliability | A sync that fails loudly and runs twice safely, plus tests for the tagging pipeline |
-| 7–8 | **SEC** Security | No keys in git, a read-only database user for the agent, RLS on all seven tables |
-| 9–12 | **SCL** Scaling | p95 latency per hop, indexes with before/after numbers, cached forecasts, background jobs, a cost model |
+| Weeks | Area | Projects | You'll ship |
+| --- | --- | --- | --- |
+| 1–3 | **RUN** How software runs | The Ghost Fortune Teller, The Two-Headed Ghost, Ghost in a Shipping Container | A request-flow diagram, a twelve-factor scorecard, a live public URL |
+| 4–6 | **REL** Reliability | The Pirate Treasure Counter, The Storm Oracle Importer, The Robot Chef's Recipe Scaler | A failed run that alerted you, identical row counts across three runs, a green CI run and a postmortem |
+| 7–8 | **SEC** Security | The Dragon's Hoard, The Dragon Club | A permission-denied screenshot, RLS test output, a security note |
+| 9–12 | **SCL** Scaling | The Dragon Post Office, The Pirate Manifest, The Crystal Ball Cache, The Galaxy Map Generator | A p95 latency table, before and after query plans, cache hit rates, a State of the Dragon Kingdom memo |
 
-Budget is 3–4.5 hours a week. Tasks are 15–90 minutes so they fit around a day job.
+Budget is about 3 to 5 hours a week (Week 8 is the heaviest). Tasks are 15–90 minutes so they fit around a day job.
+The projects use Python, so start with a Python 3 install, and a free GitHub account.
 
 ## What's on the site
 
 - **Today**: your current week, a pace check, a scorecard, and a *Needs attention* list
-  (late tasks, missing reflections, concepts you still can't explain). It works like
-  exception management in your control tower.
-- **Week pages**: concepts (plain English, supply chain analogy, where it lives in your stack),
-  tasks with time estimates and copyable *teach-me* prompts, reading, an **exec lens** (the
-  questions you can now ask, and the decision it informs), proof, and a reflection.
+  (late tasks, missing reflections, concepts you still can't explain).
+- **Week pages**: the week's project, concepts (plain English, an everyday or supply chain
+  analogy, and where you'll meet it in the project), tasks with time estimates and copyable
+  *teach-me* prompts, reading, an **exec lens** (the questions you can now ask, and the decision
+  it informs), proof, and a reflection.
 - **Roadmap**: all 12 weeks, plus outlines for the next three tracks: *AI Systems That Hold Up*,
   *Data Platform Fluency* and *Technical Leadership for Executives*.
 - **Glossary**: 40 concepts you rate as *Heard of it*, *Can explain it* or *Have used it*.
@@ -58,24 +59,24 @@ All content is in three plain files. You don't need to touch the app code.
 
 | File | What's in it |
 | --- | --- |
-| `content/curriculum.js` | Tracks, areas, weeks, tasks, reading, exec lens, proof |
-| `content/glossary.js` | Concepts: `plain`, `analogy` (supply chain), `stack` (your control tower) |
+| `content/curriculum.js` | Tracks, areas, weeks, projects, tasks, reading, exec lens, proof |
+| `content/glossary.js` | Concepts: `plain`, `analogy`, and `project` (where you'll meet it) |
 | `content/prompts.js` | The prompt library and the coach-mode text |
 
 Rules that keep your progress safe:
 
-- **Never change an existing task `id` or glossary `id`.** Progress is saved against them.
-  To replace a task, add a new one with a new id.
+- **Never change an existing task `id` or glossary `id` once you've ticked or rated it.**
+  Progress is saved against them. To replace a task, add a new one with a new id.
 - Wrap code-ish words in backticks (`` `docker build` ``) to show them as code.
-- Run `node scripts/check-content.js` after editing. It catches syntax slips, duplicate ids and
-  missing glossary terms. The deploy runs the same check and stops if it fails.
+- Run `node scripts/check-content.js` after editing. It catches syntax slips, duplicate ids,
+  missing projects and missing glossary terms. The deploy runs the same check and stops if it fails.
 
 To turn a planned track into full weeks, open the Roadmap, copy the track's
 *Prompt to expand this track*, and give it to Claude Code in this repo.
 
 ## Make Claude Code teach by default
 
-Copy `templates/CLAUDE-coach-mode.md` into the `CLAUDE.md` of each control tower repo. Claude Code
+Copy `templates/CLAUDE-coach-mode.md` into the `CLAUDE.md` of any repo you learn in. Claude Code
 will then explain before it acts, ask you to predict results, review your code rather than write
 it, and end each session with a summary for your journal.
 

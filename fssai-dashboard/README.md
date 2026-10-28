@@ -10,10 +10,9 @@ regulator did, never what an inspector saw, and it says plainly what it hasn't c
 ## How it works
 
 ```
- FSSAI hygiene directory ──┐            (automated, nightly)
- FoSCoS licence lookup ────┼──> data/*.json ──┐
+ FSSAI hygiene directory ──> data/*.json ──┐  (automated, nightly)
  Maharashtra FDA notes ──> inbox/ ──> person reviews ──> data/manual/actions.csv
- Courts, RTI, FSSAI press ─────────────────────────────┘ (entered by hand)
+ FoSCoS checks, courts, RTI, FSSAI press ──────────────┘ (entered by hand)
                                                 │
                      python -m pipeline build (validates, joins on licence no.)
                                                 │
@@ -36,13 +35,19 @@ regulator did, never what an inspector saw, and it says plainly what it hasn't c
 
 1. **Turn on Pages:** Settings > Pages > Source: *GitHub Actions*. The site publishes on the
    next push to `main`, empty at first, saying so.
-2. **Check each source in a browser** and fill in `config/endpoints.toml`. Open the portal,
-   then DevTools > Network, run a search, and copy the request URLs and form field names
-   into the file. Check the column and label names against what the page shows. Then set
+2. **Check each source in a browser** and fill in `config/endpoints.toml`, then set
    `verified = true`. Until then that source is skipped.
+   - Hygiene directory: open a page such as `https://hygiene.fssai.gov.in/fboDetails.php?id=978`
+     and check the labels on it match `[hygiene.labels]`. That's all the sweep needs. It
+     walks every id slowly (about 3,000 a night), keeps Mumbai entries and resumes each
+     night, so a full first pass can take a few weeks. For a faster Mumbai-only pass, find
+     the knowRating.php search endpoints in DevTools > Network and switch `mode = "search"`.
+   - Press notes: find the FDA's press-note listing page and put it in `listing_urls`.
+   - FoSCoS stays manual (its lookup is encrypted; we don't break that).
 3. **Run it once by hand:** Actions > Collect and publish > Run workflow. Check the log
    and the committed data before trusting the nightly run.
-4. **Review press notes:** download the `press-notes-*` artifact from the run, or open the
+4. **Start with `inbox/leads.md`:** recent news-reported FDA actions in Mumbai whose official press notes should be found first.
+5. **Review press notes:** download the `press-notes-*` artifact from the run, or open the
    links from `python -m pipeline inbox`, and add actions to `data/manual/actions.csv`.
 
 ### Known risk: India-only access

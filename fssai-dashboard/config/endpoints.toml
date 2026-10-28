@@ -10,6 +10,16 @@
 # disallows bots in robots.txt.
 verified = false
 min_delay_seconds = 5
+mode = "sweep"                        # "sweep" or "search" (see pipeline/sources/hygiene.py)
+
+# sweep: public per-establishment pages, found via web search (Oct 2026). Open
+# one in a browser and check the labels in [hygiene.labels] match the page.
+detail_url = "https://hygiene.fssai.gov.in/fboDetails.php?id={id}"
+start_id = 1
+max_ids_per_run = 3000                # about 4-5 hours at 5 seconds a page
+stop_after_missing = 500              # this many empty ids in a row = end of the list
+
+# search: the knowRating.php form. Fill these in from DevTools before using mode = "search".
 form_url = "https://hygiene.fssai.gov.in/knowRating.php"
 state_field = "state"                 # name of the <select> for state on form_url
 districts_url = "https://hygiene.fssai.gov.in/CHECK-IN-DEVTOOLS.php"   # the AJAX call made when a state is picked
@@ -20,6 +30,20 @@ extra_form_fields = {}                # any hidden fields the form also sends
 page_field = ""                       # set if results are paged, e.g. "page"
 max_pages = 200
 
+# Labels on a detail page (sweep). Never add the auditor's comments: they describe
+# conditions, and this project records actions only.
+[hygiene.labels]
+name = ["name of fbo", "fbo name", "name of establishment", "establishment name", "name of the establishment", "business name"]
+licence_no = ["fssai license no", "fssai licence no", "license no", "licence no", "license number", "licence number", "fbo license no", "fbo number", "fssai number"]
+address = ["address", "fbo address", "establishment address", "premises address"]
+district = ["district"]
+state = ["state"]
+rating = ["rating", "hygiene rating", "star rating", "smiley rating"]
+audit_date = ["audit date", "date of audit"]
+valid_until = ["valid upto", "valid till", "validity", "rating valid upto"]
+auditor = ["agency name", "auditing agency", "audit agency", "name of agency"]
+
+# Column headings in the search results table (search).
 [hygiene.columns]
 name = ["establishment name", "name of establishment", "name of the establishment", "fbo name"]
 address = ["address", "establishment address"]
@@ -30,8 +54,10 @@ valid_until = ["valid upto", "valid till", "validity", "rating valid upto"]
 auditor = ["auditing agency", "audit agency", "agency"]
 
 [foscos]
-# Licence lookup by number. Some FoSCoS flows have a CAPTCHA; the client stops
-# the moment it sees one. Only point this at a lookup that has none.
+# Licence lookup by number. Reported (Oct 2026) to use an encrypted request and
+# response plus a CSRF token. We don't break that, so this stays off and licences
+# are checked by hand on the FoSCoS "FBO Search" page during review. Only switch
+# it on if a plain, CAPTCHA-free lookup turns up.
 verified = false
 min_delay_seconds = 15
 lookup_url = "https://foscos.fssai.gov.in/CHECK-IN-DEVTOOLS"

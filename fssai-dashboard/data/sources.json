@@ -5,16 +5,16 @@
     "url": "https://hygiene.fssai.gov.in/knowRating.php",
     "kind": "automated",
     "status": "not_started",
-    "covers": "Establishments that applied for and received an FSSAI hygiene rating. Voluntary, so most restaurants are not listed.",
+    "covers": "Establishments that applied for and received an FSSAI hygiene rating. Voluntary, so most restaurants are not listed. We record the rating only, never the auditor's comments.",
     "applies_to_all": false
   },
   {
     "id": "foscos",
     "name": "FoSCoS licence register",
     "url": "https://foscos.fssai.gov.in/",
-    "kind": "automated",
+    "kind": "manual",
     "status": "not_started",
-    "covers": "Licence status and validity, looked up only for licence numbers already in our data.",
+    "covers": "Licence status and validity, checked by hand by licence number when an action is reviewed. The public lookup is encrypted, so we don't automate it.",
     "applies_to_all": false
   },
   {

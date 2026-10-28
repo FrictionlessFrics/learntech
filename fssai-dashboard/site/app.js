@@ -88,10 +88,13 @@
       ]));
     }
     e.hygiene.forEach(function (h) {
-      parts.push(el("h3", { text: "FSSAI hygiene rating" }), el("p", { text:
-        [h.rating && "Rating " + h.rating, h.audit_date && "audited " + day(h.audit_date),
-         h.valid_until && "valid until " + day(h.valid_until), h.auditor && "by " + h.auditor].filter(Boolean).join(", ") +
-        (h.licence_no ? "." : ". The directory gives no licence number for this entry, so it is not linked to any other record.") }));
+      var said = [h.rating && "Rating " + h.rating, h.audit_date && "audited " + day(h.audit_date),
+        h.valid_until && "valid until " + day(h.valid_until), h.auditor && "by " + h.auditor].filter(Boolean).join(", ");
+      parts.push(el("h3", { text: "FSSAI hygiene rating" }), el("p", {}, [
+        document.createTextNode((said || "Listed in the directory") +
+          (h.licence_no ? ". " : ". The directory gives no licence number for this entry, so it is not linked to any other record. ")),
+        link(h.source_url, "FSSAI hygiene directory")
+      ]));
     });
     var checked = [];
     if (e.hygiene.length) checked.push("FSSAI hygiene rating directory");

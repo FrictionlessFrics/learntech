@@ -25,6 +25,11 @@ defamation claim. These rules come before speed or coverage.
   CAPTCHA, rotate IPs or spoof the user agent.
 - Do not scrape fssai.gov.in/hygieneRating (robots.txt disallows bots). Use the old
   hygiene.fssai.gov.in portal.
+- Never collect hygiene auditors' comments; they describe conditions. Rating, date,
+  agency and licence number only.
+- FoSCoS's public lookup encrypts its traffic. Don't reverse-engineer or decrypt it;
+  licence checks stay manual unless a plain, CAPTCHA-free lookup exists.
+- News reports are leads (`inbox/leads.md`), never sources. Find the official document.
 - Do not scrape Instagram or other social media. Enter anything found there by hand,
   with a link to the official post.
 - eCourts and e-Jagriti: manual entry only, unless a CAPTCHA-free official route exists.

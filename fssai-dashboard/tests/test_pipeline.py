@@ -99,7 +99,7 @@ class ParseTests(unittest.TestCase):
 
 class HygieneTests(unittest.TestCase):
     def test_run_saves_both_districts(self):
-        cfg = {"form_url": "https://h.example/form", "state_field": "state", "districts_url": "https://h.example/d",
+        cfg = {"mode": "search", "form_url": "https://h.example/form", "state_field": "state", "districts_url": "https://h.example/d",
                "districts_state_param": "state_id", "district_field": "district", "search_url": "https://h.example/s",
                "columns": {"name": ["establishment name"], "address": ["address"], "licence_no": ["license no"],
                            "rating": ["rating"], "audit_date": ["audit date"], "valid_until": ["valid upto"]}}
@@ -116,6 +116,45 @@ class HygieneTests(unittest.TestCase):
         self.assertEqual(linked["audit_date"], "2026-03-01")
         self.assertIsNone(next(r for r in city if r["name"] == "Sample Snack Corner")["licence_no"])
         self.assertEqual(c.session.calls[-1][3], {"state": "27", "district": "520"})
+
+
+def detail_page(name, licence, address, state="Maharashtra"):
+    return FakeResponse(200, f"<table><tr><td>Name of FBO</td><td>{name}</td></tr>"
+                             f"<tr><td>FSSAI License No</td><td>{licence}</td></tr>"
+                             f"<tr><td>Address</td><td>{address}</td></tr><tr><td>State</td><td>{state}</td></tr>"
+                             f"<tr><td>Agency Name</td><td>Fictional Audits</td></tr></table>")
+
+
+class SweepTests(unittest.TestCase):
+    CFG = {"mode": "sweep", "detail_url": "https://h.example/fbo?id={id}", "start_id": 1, "max_ids_per_run": 10,
+           "stop_after_missing": 2, "labels": {"name": ["name of fbo"], "licence_no": ["fssai license no"],
+                                               "address": ["address"], "state": ["state"], "auditor": ["agency name"]}}
+    SCOPE = {"city": "Mumbai", "state": "Maharashtra", "districts": ["Mumbai City", "Mumbai Suburban"]}
+
+    def routes(self):
+        empty = FakeResponse(200, "<p>No record</p>")
+        pages = {1: detail_page("Example Test Kitchen", "10000000000001", "1 Test Road, Fort, Mumbai 400001"),
+                 2: detail_page("Sample Pune Bakery", "10000000000002", "5 Demo Road, Pune"),
+                 3: empty, 4: empty}
+        return {("GET", self.CFG["detail_url"].format(id=i)): [p] for i, p in pages.items()}
+
+    def test_keeps_only_in_scope_and_restarts_after_the_end(self):
+        store = Store(temp_project())
+        self.assertEqual(hygiene.run(client(self.routes()), self.CFG, self.SCOPE, store), 1)
+        (record,) = store.hygiene["Mumbai"]
+        self.assertEqual((record["id"], record["licence_no"], record["auditor"]), ("hyg-fbo-1", "10000000000001", "Fictional Audits"))
+        self.assertEqual(record["source_url"], "https://h.example/fbo?id=1")
+        self.assertEqual(store.runs["hygiene"]["next_id"], 1)  # passed the end, so start over next run
+
+    def test_resumes_where_it_stopped(self):
+        store = Store(temp_project())
+        c = client(self.routes())
+        hygiene.run(c, dict(self.CFG, max_ids_per_run=2), self.SCOPE, store)
+        self.assertEqual(store.runs["hygiene"]["next_id"], 3)
+        c.deadline = c.clock() - 1  # out of time straight away: position still saved
+        with self.assertRaises(OutOfTime):
+            hygiene.run(c, self.CFG, self.SCOPE, store)
+        self.assertEqual(store.runs["hygiene"]["next_id"], 3)
 
 
 class BuildTests(unittest.TestCase):

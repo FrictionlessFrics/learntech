@@ -57,6 +57,11 @@ class Store:
         self.hygiene[district] = records
         write_json(self.data / "hygiene_ratings.json", self.hygiene)
 
+    def upsert_hygiene(self, district, record):
+        rows = [r for r in self.hygiene.get(district, []) if r["id"] != record["id"]]
+        self.hygiene[district] = sorted(rows + [record], key=lambda r: r["id"])
+        write_json(self.data / "hygiene_ratings.json", self.hygiene)
+
     def save_licences(self):
         write_json(self.data / "licences.json", self.licences)
 

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "hygiene",
+    "name": "FSSAI hygiene rating directory (old portal)",
+    "url": "https://hygiene.fssai.gov.in/knowRating.php",
+    "kind": "automated",
+    "status": "not_started",
+    "covers": "Establishments that applied for and received an FSSAI hygiene rating. Voluntary, so most restaurants are not listed.",
+    "applies_to_all": false
+  },
+  {
+    "id": "foscos",
+    "name": "FoSCoS licence register",
+    "url": "https://foscos.fssai.gov.in/",
+    "kind": "automated",
+    "status": "not_started",
+    "covers": "Licence status and validity, looked up only for licence numbers already in our data.",
+    "applies_to_all": false
+  },
+  {
+    "id": "mh_fda",
+    "name": "Maharashtra FDA press notes",
+    "url": "https://fda.maharashtra.gov.in/",
+    "kind": "reviewed",
+    "status": "not_started",
+    "covers": "Enforcement actions the FDA chose to announce. Most actions are never announced.",
+    "applies_to_all": true,
+    "reviewed_from": "",
+    "reviewed_through": ""
+  },
+  {
+    "id": "ecourts",
+    "name": "eCourts and e-Jagriti",
+    "url": "https://services.ecourts.gov.in/",
+    "kind": "manual",
+    "status": "not_started",
+    "covers": "Prosecutions and consumer commission orders, entered by hand when found.",
+    "applies_to_all": false
+  },
+  {
+    "id": "fssai_press",
+    "name": "FSSAI press releases",
+    "url": "https://fssai.gov.in/",
+    "kind": "manual",
+    "status": "not_started",
+    "covers": "Brand-level actions announced by FSSAI, entered by hand.",
+    "applies_to_all": false
+  },
+  {
+    "id": "rti",
+    "name": "RTI replies from District Designated Officers",
+    "url": "",
+    "kind": "manual",
+    "status": "not_started",
+    "covers": "Section 32 improvement notices and Section 68 adjudication orders. These are not published online.",
+    "applies_to_all": false
+  }
+]

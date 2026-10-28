@@ -1,0 +1,58 @@
+# Where each source lives and how its pages are laid out.
+#
+# Nothing here has been checked against the live portals yet. Each source stays
+# switched off (verified = false) until someone opens the page in a browser,
+# watches DevTools > Network while using the search, and fills in the real
+# URLs and form field names below. Then set verified = true.
+
+[hygiene]
+# Old FSSAI hygiene rating directory. NOT fssai.gov.in/hygieneRating, which
+# disallows bots in robots.txt.
+verified = false
+min_delay_seconds = 5
+form_url = "https://hygiene.fssai.gov.in/knowRating.php"
+state_field = "state"                 # name of the <select> for state on form_url
+districts_url = "https://hygiene.fssai.gov.in/CHECK-IN-DEVTOOLS.php"   # the AJAX call made when a state is picked
+districts_state_param = "state_id"    # what that call sends the state as
+district_field = "district"
+search_url = "https://hygiene.fssai.gov.in/CHECK-IN-DEVTOOLS.php"      # the POST made by the search button
+extra_form_fields = {}                # any hidden fields the form also sends
+page_field = ""                       # set if results are paged, e.g. "page"
+max_pages = 200
+
+[hygiene.columns]
+name = ["establishment name", "name of establishment", "name of the establishment", "fbo name"]
+address = ["address", "establishment address"]
+licence_no = ["license no", "licence no", "license number", "licence number", "fssai license no", "fssai licence no"]
+rating = ["rating", "hygiene rating", "star rating"]
+audit_date = ["audit date", "date of audit"]
+valid_until = ["valid upto", "valid till", "validity", "rating valid upto"]
+auditor = ["auditing agency", "audit agency", "agency"]
+
+[foscos]
+# Licence lookup by number. Some FoSCoS flows have a CAPTCHA; the client stops
+# the moment it sees one. Only point this at a lookup that has none.
+verified = false
+min_delay_seconds = 15
+lookup_url = "https://foscos.fssai.gov.in/CHECK-IN-DEVTOOLS"
+method = "POST"                       # GET or POST
+licence_param = "licenseNo"
+public_url = "https://foscos.fssai.gov.in/"   # the page a reader can use to check a licence themselves
+max_lookups_per_run = 400
+
+[foscos.labels]
+name = ["name of company", "company name", "fbo name", "name of fbo"]
+address = ["premises address", "address of premises", "address"]
+district = ["district"]
+state = ["state"]
+kind = ["license type", "licence type", "kind of business"]
+status = ["status", "license status", "licence status"]
+valid_until = ["valid upto", "validity", "expiry date", "valid till"]
+
+[mh_fda]
+# Maharashtra FDA press notes. Documents are collected into inbox/ for a person
+# to review; facts go into data/manual/actions.csv by hand.
+verified = false
+min_delay_seconds = 5
+listing_urls = ["https://fda.maharashtra.gov.in/CHECK-PRESS-NOTE-LISTING-PAGE"]
+link_pattern = "\\.pdf$|press"

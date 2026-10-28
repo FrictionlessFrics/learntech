@@ -1,0 +1,5 @@
+# Which part of India the dashboard covers. Start small, label it honestly, expand.
+city = "Mumbai"
+state = "Maharashtra"
+# District names exactly as the FSSAI hygiene directory spells them (check the dropdown).
+districts = ["Mumbai City", "Mumbai Suburban"]

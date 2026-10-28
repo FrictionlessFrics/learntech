@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Safety Actions</title>
+  <meta name="description" content="Public regulatory food-safety actions against restaurants and hotels, from FSSAI and state FDA records.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Food Safety Actions: <span id="city">…</span></h1>
+    <p class="sub">Regulatory actions against restaurants and hotels, taken from public government records.</p>
+    <div class="banner" role="note">
+      <p><strong>This is not a hygiene guide.</strong> It lists only the actions we could find in public records.
+        Most inspections and notices are never published, and our records lean towards big brands and busy areas.</p>
+      <p>No record here does <em>not</em> mean a clean record. <a href="methodology.html">How this works</a></p>
+    </div>
+  </header>
+
+  <main>
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search by name, area or 14-digit licence number" aria-label="Search">
+      <label><input id="only-actions" type="checkbox"> Only places with recorded actions</label>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div id="results"></div>
+
+    <section>
+      <h2>Sources and coverage</h2>
+      <p class="fine" id="generated"></p>
+      <div class="table-wrap"><table id="sources"></table></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Each entry links to the government document it came from. Spotted a mistake, or has an order been withdrawn
+      or overturned? <a id="correct-link" href="#">Ask for a correction</a>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

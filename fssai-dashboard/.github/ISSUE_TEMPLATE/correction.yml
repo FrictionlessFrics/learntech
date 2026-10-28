@@ -1,0 +1,25 @@
+name: Correction request
+description: Something on the dashboard is wrong, or an order was withdrawn or overturned.
+title: "Correction: "
+labels: [correction]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry?
+      description: The business name and its 14-digit FSSAI licence number, as shown on the site.
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A link to, or copy of, the order, appeal decision or other document. Please remove personal details.
+    validations:
+      required: true
